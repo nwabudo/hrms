@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import lombok.AllArgsConstructor;
@@ -14,7 +13,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Document(collection = "benefit_tbl")
+//@Document(collection = "benefit_tbl")
 @Builder
 @Getter
 @Setter

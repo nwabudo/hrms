@@ -29,13 +29,13 @@ public abstract class AuditModel implements Serializable {
 	@NotNull 
     @Field(name = "created_at")
     @CreatedDate
-    @JsonFormat(pattern = "yyyy-mm-dd")
+    @JsonFormat(pattern = "yyyy-MMM-dd")
     private Date createdAt;
 
 	@NotNull 
     @Field(name = "updated_at")
     @LastModifiedDate
-    @JsonFormat(pattern = "yyyy-mm-dd")
+    @JsonFormat(pattern = "yyyy-MMM-dd")
     private Date updatedAt;
     
 }

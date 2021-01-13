@@ -21,9 +21,6 @@ public class UserPrincipalDetailsService implements UserDetailsService {
 		Employee employee = this.userRepository.findByUserName(username)
 				.orElseThrow(() -> new UsernameNotFoundException("No user Found with userName: " + username));
 
-		if (employee == null)
-			throw new UsernameNotFoundException("User not found");
-
 		UserPrincipal user = new UserPrincipal(employee);
 		return user;
 	}

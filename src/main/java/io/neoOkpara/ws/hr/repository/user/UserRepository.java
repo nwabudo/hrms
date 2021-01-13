@@ -13,7 +13,7 @@ public interface UserRepository extends MongoRepository<Employee, String> {
 
 	Optional<Employee> findByEmpId(String empId);
 	
-	Boolean existsByUsername(String username);
+	Boolean existsByUserName(String username);
 	
 	Set<Employee> findByManagerId(String managerId);
 }

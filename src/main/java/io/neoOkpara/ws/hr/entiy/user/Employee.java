@@ -1,9 +1,11 @@
 package io.neoOkpara.ws.hr.entiy.user;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -72,22 +74,22 @@ public class Employee extends AuditModel {
 	@Builder.Default
 	private String managerId = null;
 
-	@Field(name = "is_manager")
-	@Builder.Default
-	private boolean isManager = false;
+	/*
+	 * @Field(name = "is_manager")
+	 * @Builder.Default private boolean isManager = false;
+	 */
+
+	@DBRef
+	private Collection<Role> roles;
+
+	// private ERole role;
 
 	/*
-	 * @DBRef private Collection<Role> roles;
+	 * public void promoteToManager() { this.isManager = true; if
+	 * (this.department.getDepartment().equals("HR")) this.roles.add(new
+	 * Role(ERole.ROLE_HRMANAGER)); else this.roles.add(new
+	 * Role(ERole.ROLE_MANAGER)); }
 	 */
-	private ERole role;
-
-	public void promoteToManager() {
-		this.isManager = true;
-		if (this.department.getDepartment().equals("HR"))
-			this.setRole(ERole.ROLE_HRMANAGER);
-		else
-			this.setRole(ERole.ROLE_MANAGER);
-	}
 
 	public void assignAManger(String id) {
 		this.managerId = id;

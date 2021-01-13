@@ -1,13 +1,14 @@
 package io.neoOkpara.ws.hr.entiy.user;
 
-import java.util.Collection;
-
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -15,14 +16,18 @@ import lombok.ToString;
 @Builder
 @Getter
 @Setter
-@ToString(exclude = { "employee" })
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class Privilege {
 
 	@Id
-	private Long id;
+	private ObjectId _id;
 
-	private String name;
-
-	@DBRef
-	private Collection<Employee> employee;
+	@Field(name = "privilege_name")
+	private ApplicationUserPermission name;
+	
+	public Privilege(ApplicationUserPermission name) {
+		this.name = name;
+	}
 }

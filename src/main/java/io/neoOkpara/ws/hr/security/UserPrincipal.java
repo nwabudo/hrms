@@ -1,8 +1,12 @@
 package io.neoOkpara.ws.hr.security;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import io.neoOkpara.ws.hr.entiy.user.Employee;
@@ -10,7 +14,7 @@ import io.neoOkpara.ws.hr.entiy.user.Employee;
 public class UserPrincipal implements UserDetails {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private Employee employee;
 
 	public UserPrincipal(Employee employee) {
@@ -19,7 +23,14 @@ public class UserPrincipal implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return this.employee.getRole().getGrantedAuthorities();
+		Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
+		this.employee.getRoles().stream().forEach(role -> {
+			authorities.add(new SimpleGrantedAuthority(role.getName().name()));
+			role.getPrivileges().stream().forEach(privilege -> {
+				authorities.add(new SimpleGrantedAuthority(privilege.getName().getPermission()));
+			});
+		});
+		return authorities;
 	}
 
 	@Override
@@ -50,6 +61,10 @@ public class UserPrincipal implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		return true;
+	}
+
+	public Optional<Employee> getUser() {
+		return Optional.of(this.employee);
 	}
 
 }
