@@ -1,5 +1,8 @@
 package io.neoOkpara.ws.hr.entiy.user;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 public enum ERole {
 //	ROLE_USER(Sets.newHashSet()), 
 //	ROLE_MANAGER(Sets.newHashSet(USER_READ, USER_WRITE)),
@@ -24,5 +27,16 @@ public enum ERole {
 //		permissions.add(new SimpleGrantedAuthority(this.name()));
 //		return permissions;
 //	}
-	ROLE_USER, ROLE_MANAGER, ROLE_HR, ROLE_HRMANAGER, ROLE_ADMIN;
+	ROLE_ADMIN, ROLE_HRMANAGER, ROLE_HR, ROLE_MANAGER, ROLE_USER;
+
+	public static String getRoleHierarchy() {
+		return Arrays.stream(ERole.values())
+				.map(ERole::getRole)
+				.collect(Collectors.joining(" > "));
+	}
+
+	public String getRole() {
+		return name();
+	}
+
 }

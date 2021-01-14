@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -24,10 +25,16 @@ public class UserPrincipal implements UserDetails {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
-		authorities.add(new SimpleGrantedAuthority(this.employee.getRoles().getName().name()));
-		this.employee.getRoles().getPrivileges().stream().forEach(privilege -> {
-			authorities.add(new SimpleGrantedAuthority(privilege.getName().getPermission()));
-		});
+		authorities.add(new SimpleGrantedAuthority(this.employee.getRoles().getName().getRole()));
+		authorities.addAll(
+			this.employee.getRoles().getPrivileges()
+			.stream()
+			.map(privilege -> privilege.getName().getPermission())
+			.map(SimpleGrantedAuthority::new)
+	        .collect(Collectors.toSet()));
+			//.forEach(privilege -> {
+			//authorities.add(new SimpleGrantedAuthority(privilege.getName().getPermission()));
+			//});
 		return authorities;
 	}
 

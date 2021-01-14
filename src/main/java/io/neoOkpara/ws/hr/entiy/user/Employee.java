@@ -44,12 +44,6 @@ public class Employee extends AuditModel {
 	@Indexed(unique=true)
 	private String userName;
 
-	/*
-	 * @Field(name = "grade_id")
-	 * 
-	 * @DBRef private Grade grade;
-	 */
-
 	@Field(name = "pwd")
 	private String password;
 
