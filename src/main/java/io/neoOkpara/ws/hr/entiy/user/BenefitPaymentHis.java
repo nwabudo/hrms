@@ -9,6 +9,9 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import io.neoOkpara.ws.hr.entity.audit.AuditModel;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,6 +23,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+@JsonIgnoreProperties(value = { "employee" })
 public class BenefitPaymentHis extends AuditModel {
 
 	private static final long serialVersionUID = -911265061874866421L;
@@ -35,9 +39,11 @@ public class BenefitPaymentHis extends AuditModel {
 	private BenefitType type;
 	
 	@Field(name = "disbursed_amount")
-	private BigDecimal disbursedamount;
+	@Builder.Default
+	private BigDecimal disbursedamount = new BigDecimal(0);
 	
 	@Field(name = "disbursed_date")
 	@Builder.Default
+	@JsonFormat(pattern = "yyyy-MMM-dd HH:mm")
 	private Date disbursedDate = new Date();
 }

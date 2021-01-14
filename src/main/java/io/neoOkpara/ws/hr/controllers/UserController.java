@@ -1,5 +1,6 @@
 package io.neoOkpara.ws.hr.controllers;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.neoOkpara.ws.hr.entiy.user.BenefitPaymentHis;
 import io.neoOkpara.ws.hr.entiy.user.Benefits;
 import io.neoOkpara.ws.hr.entiy.user.Employee;
 import io.neoOkpara.ws.hr.service.UserService;
@@ -44,5 +46,10 @@ public class UserController {
 	@PreAuthorize(value = "hasAnyAuthority('user:write')")
 	public Employee maintainBenefit(@PathVariable("empId") String empId, @RequestBody Benefits benefits) {
 		return this.userService.maintainBenefit(empId, benefits);
+	}
+	
+	@GetMapping(path = "/{empId}/benefitsList")
+	public List<BenefitPaymentHis> getAllEmployeeBenefit(@PathVariable("empId") String empId) {
+		return this.userService.fetchSalaryHistory(empId);
 	}
 }

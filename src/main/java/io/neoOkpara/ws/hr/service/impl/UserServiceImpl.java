@@ -2,6 +2,7 @@ package io.neoOkpara.ws.hr.service.impl;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -9,10 +10,12 @@ import java.util.stream.Collectors;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import io.neoOkpara.ws.hr.entiy.user.BenefitPaymentHis;
 import io.neoOkpara.ws.hr.entiy.user.Benefits;
 import io.neoOkpara.ws.hr.entiy.user.ERole;
 import io.neoOkpara.ws.hr.entiy.user.Employee;
 import io.neoOkpara.ws.hr.exception.UserServiceException;
+import io.neoOkpara.ws.hr.repository.benefit.BenefitRepository;
 import io.neoOkpara.ws.hr.repository.user.UserRepository;
 import io.neoOkpara.ws.hr.security.UserPrincipal;
 import io.neoOkpara.ws.hr.service.UserService;
@@ -23,9 +26,12 @@ import lombok.extern.slf4j.Slf4j;
 public class UserServiceImpl implements UserService {
 
 	private UserRepository userRepository;
+	
+	private BenefitRepository benefitRepository;
 
-	public UserServiceImpl(UserRepository userRepository) {
+	public UserServiceImpl(UserRepository userRepository, BenefitRepository benefitRepository) {
 		this.userRepository = userRepository;
+		this.benefitRepository = benefitRepository;
 	}
 
 	@Override
@@ -75,4 +81,13 @@ public class UserServiceImpl implements UserService {
 		return this.userRepository.save(emp);
 	}
 
+	
+	@Override
+	public List<BenefitPaymentHis> fetchSalaryHistory(String empId) {
+		Employee emp = this.userRepository.findByEmpId(empId)
+		.orElseThrow(() -> new UserServiceException("No user found for the Id: " + empId));
+		
+		return this.benefitRepository.findAllByEmployee(emp);
+	}
+	
 }
