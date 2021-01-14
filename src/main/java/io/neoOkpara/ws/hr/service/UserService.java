@@ -6,6 +6,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 
+import io.neoOkpara.ws.hr.entiy.user.Benefits;
 import io.neoOkpara.ws.hr.entiy.user.Employee;
 
 public interface UserService {
@@ -17,7 +18,9 @@ public interface UserService {
 	@PreAuthorize(value = "hasAnyAuthority('hr:read') or @userSecurity.hasUserId(authentication, #managerId)")
 	Set<Employee> getEmployeeByManagerId(@Param("managerId") String managerId);
 	
-	//@PostAuthorize(value = "@userSecurity.limitByLevelofHR(returnObject, authentication)")
+	//@PreAuthorize(value = "@userSecurity.limitByLevelofHR(authentication)")
 	Set<Employee> getAllEmployees() throws Exception;
+
+	Employee maintainBenefit(String empId, Benefits benefits);
 
 }

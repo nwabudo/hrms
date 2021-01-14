@@ -24,11 +24,9 @@ public class UserPrincipal implements UserDetails {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
-		this.employee.getRoles().stream().forEach(role -> {
-			authorities.add(new SimpleGrantedAuthority(role.getName().name()));
-			role.getPrivileges().stream().forEach(privilege -> {
-				authorities.add(new SimpleGrantedAuthority(privilege.getName().getPermission()));
-			});
+		authorities.add(new SimpleGrantedAuthority(this.employee.getRoles().getName().name()));
+		this.employee.getRoles().getPrivileges().stream().forEach(privilege -> {
+			authorities.add(new SimpleGrantedAuthority(privilege.getName().getPermission()));
 		});
 		return authorities;
 	}

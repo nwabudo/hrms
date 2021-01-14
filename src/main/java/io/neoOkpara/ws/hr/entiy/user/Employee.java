@@ -1,10 +1,10 @@
 package io.neoOkpara.ws.hr.entiy.user;
 
 import java.math.BigDecimal;
-import java.util.Collection;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -41,6 +41,7 @@ public class Employee extends AuditModel {
 	private String lastName;
 
 	@Field(name = "user_name")
+	@Indexed(unique=true)
 	private String userName;
 
 	/*
@@ -74,15 +75,13 @@ public class Employee extends AuditModel {
 	@Builder.Default
 	private String managerId = null;
 
-	/*
-	 * @Field(name = "is_manager")
-	 * @Builder.Default private boolean isManager = false;
-	 */
+	// @Field(name = "is_manager")
+	// @Builder.Default private boolean isManager = false;
+	//	@DBRef
+	//	private UserGroup group;
 
 	@DBRef
-	private Collection<Role> roles;
-
-	// private ERole role;
+	private Role roles;
 
 	/*
 	 * public void promoteToManager() { this.isManager = true; if

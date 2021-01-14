@@ -4,7 +4,6 @@
 //import java.util.Collection;
 //import java.util.List;
 //import java.util.Optional;
-//import java.util.UUID;
 //
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.context.ApplicationListener;
@@ -67,27 +66,43 @@
 //
 //				Employee.builder().empId("NO123").firstName("Emmanuel").lastName("Nwabudo").userName("okpara")
 //						.password(passwordEncoder.encode("password123")).department(Department.INFORMATION_TECHNOLOGY)
-//						.roles(Arrays.asList(mngrRole)).build(),
+//						.roles(mngrRole).build(),
 //
 //				Employee.builder().empId("NO153").firstName("Onyekachi").lastName("John").userName("emmaco")
 //						.password(passwordEncoder.encode("password123")).department(Department.INFORMATION_TECHNOLOGY)
-//						.managerId("NO123").roles(Arrays.asList(userRole)).build(),
+//						.managerId("NO123").roles(userRole).build(),
 //
 //				Employee.builder().empId("NO167").firstName("Kehinde").lastName("Alabi").userName("alabi")
 //						.password(passwordEncoder.encode("password123")).department(Department.INFORMATION_TECHNOLOGY)
-//						.managerId("NO123").roles(Arrays.asList(userRole)).build(),
+//						.managerId("NO123").roles(userRole).build(),
+//
+//				Employee.builder().empId("NO154").firstName("Dinma").lastName("Olua").userName("dinma")
+//						.password(passwordEncoder.encode("password123")).department(Department.INFORMATION_TECHNOLOGY)
+//						.managerId("NO123").roles(userRole).build(),
+//
+//				Employee.builder().empId("NO166").firstName("Taiye").lastName("Alabi").userName("taiyo")
+//						.password(passwordEncoder.encode("password123")).department(Department.INFORMATION_TECHNOLOGY)
+//						.managerId("NO123").roles(userRole).build(),
 //
 //				Employee.builder().empId("NO323").firstName("Francisca").lastName("Nnamdi").userName("nwabudo")
-//						.password(passwordEncoder.encode("password123")).department(Department.HUMAN_RESOURCES)
-//						.roles(Arrays.asList(hrOfficerRole)).build(),
+//						.password(passwordEncoder.encode("password123")).managerId("NO023")
+//						.department(Department.HUMAN_RESOURCES).roles(hrOfficerRole).build(),
+//
+//				Employee.builder().empId("NO3231").firstName("Maryjane").lastName("Okpara").userName("mjane")
+//						.password(passwordEncoder.encode("password123")).managerId("NO023")
+//						.department(Department.HUMAN_RESOURCES).roles(hrOfficerRole).build(),
+//
+//				Employee.builder().empId("NO3023").firstName("Ikechukwu").lastName("Onah").userName("ikay")
+//						.password(passwordEncoder.encode("password123")).managerId("NO023")
+//						.department(Department.HUMAN_RESOURCES).roles(hrOfficerRole).build(),
 //
 //				Employee.builder().empId("NO023").firstName("Mary").lastName("James").userName("mary")
 //						.password(passwordEncoder.encode("password123")).department(Department.HUMAN_RESOURCES)
-//						.roles(Arrays.asList(hrMngrRole)).build(),
+//						.roles(hrMngrRole).build(),
 //
 //				Employee.builder().empId("NO0231").firstName("Samuel").lastName("Babatunde").userName("baba")
 //						.password(passwordEncoder.encode("password123")).department(Department.ADMINISTRATION)
-//						.roles(Arrays.asList(adminRole)).build());
+//						.roles(adminRole).build());
 //
 //		userRepository.saveAll(employeeList);
 //
@@ -99,7 +114,7 @@
 //		Privilege privilege = privilegeRepository.findByName(name);
 //		if (privilege == null) {
 //			privilege = new Privilege(name);
-//			//privilege.setId(UUID.randomUUID().toString());
+//			// privilege.setId(UUID.randomUUID().toString());
 //			privilegeRepository.save(privilege);
 //		}
 //		return privilege;

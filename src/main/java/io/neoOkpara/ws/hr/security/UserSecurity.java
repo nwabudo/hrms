@@ -1,14 +1,11 @@
 package io.neoOkpara.ws.hr.security;
 
-import java.util.Set;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import io.neoOkpara.ws.hr.entiy.user.ERole;
 import io.neoOkpara.ws.hr.entiy.user.Employee;
-import io.neoOkpara.ws.hr.entiy.user.Role;
 import io.neoOkpara.ws.hr.exception.UserServiceException;
 import io.neoOkpara.ws.hr.repository.user.UserRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -37,13 +34,13 @@ public class UserSecurity {
 		if (emp.getEmpId().equals(empId) && emp.equals(returnObj))
 			return true;
 		
-		if(emp.getRoles().contains(new Role(ERole.ROLE_HR)) && returnObj.getRoles().contains(new Role(ERole.ROLE_HRMANAGER)))
+		if(emp.getRoles().getName().equals(ERole.ROLE_HR) && returnObj.getRoles().getName().equals(ERole.ROLE_HRMANAGER))
 			return false;
 
 		return !(returnObj.getRoles().equals(emp.getRoles()));
 	}
 
-	public boolean limitByLevelofHR(Set<Employee> returnObject, Authentication authentication) {
+	public boolean limitByLevelofHR(Authentication authentication) {
 		boolean isHRManager = authentication.getAuthorities().stream()
 				.anyMatch(p -> p.equals(new SimpleGrantedAuthority(ERole.ROLE_HRMANAGER.name())));
 		log.info("isHRManager returned {}", isHRManager);
