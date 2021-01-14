@@ -21,6 +21,7 @@ public interface UserService {
 	//@PreAuthorize(value = "@userSecurity.limitByLevelofHR(authentication)")
 	Set<Employee> getAllEmployees() throws Exception;
 
-	Employee maintainBenefit(String empId, Benefits benefits);
+	@PreAuthorize(value = "!@userSecurity.hasUserId(authentication, #empId)")
+	Employee maintainBenefit(@Param("empId") String empId, Benefits benefits);
 
 }
