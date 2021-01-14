@@ -44,20 +44,25 @@ public class UserSecurityImpl implements UserSecurity {
 		return isOga;
 	}
 
-	private int compareRoles(Employee targetEmp, Employee emp) {
+	private int compareRoles(Employee targetEmp, Employee authEmp) {
 		String[] roles = ERole.getRoleHierarchy().split(">");
 		// Map<Integer, String> mappedRole = new HashMap<>();
-		Integer authEmp = 0;
+		Integer authEmpLevel = 0;
 		Integer returEmp = 0;
 		for (int i = 0; i < roles.length; i++) {
 			// mappedRole.put(roles.length - i, roles[i].trim());
-			if (emp.getRoles().getName().getRole().equals(roles[i].trim()))
-				authEmp = roles.length - i;
+			if (authEmp.getRoles().getName().getRole().equals(roles[i].trim()))
+				authEmpLevel = roles.length - i;
 			if (targetEmp.getRoles().getName().getRole().equals(roles[i].trim()))
 				returEmp = roles.length - i;
 		}
-		log.info("Authenticating Employee level is {}, Target Employee level is {}", authEmp, returEmp);
-		return authEmp.compareTo(returEmp);
+		if(authEmpLevel < 3) {
+			String managerId = authEmp.getEmpId(), employeeMngId = targetEmp.getManagerId() == null ? "" : targetEmp.getManagerId();
+			if(!managerId.equals(employeeMngId))
+				return -1;
+		}
+		log.info("Authenticating Employee level is {}, Target Employee level is {}", authEmpLevel, returEmp);
+		return authEmpLevel.compareTo(returEmp);
 	}
 
 }
