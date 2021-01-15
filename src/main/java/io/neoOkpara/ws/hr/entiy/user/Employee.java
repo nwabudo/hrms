@@ -1,8 +1,8 @@
 package io.neoOkpara.ws.hr.entiy.user;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -29,7 +29,7 @@ public class Employee extends AuditModel {
 	private static final long serialVersionUID = -7521158852319446040L;
 
 	@Id
-	private ObjectId _id;
+	private BigInteger _id;
 
 	@Field(name = "emp_id")
 	public String empId;
@@ -77,13 +77,6 @@ public class Employee extends AuditModel {
 	@DBRef
 	private Role roles;
 
-	/*
-	 * public void promoteToManager() { this.isManager = true; if
-	 * (this.department.getDepartment().equals("HR")) this.roles.add(new
-	 * Role(ERole.ROLE_HRMANAGER)); else this.roles.add(new
-	 * Role(ERole.ROLE_MANAGER)); }
-	 */
-
 	public void assignAManger(String id) {
 		this.managerId = id;
 	}
@@ -91,7 +84,7 @@ public class Employee extends AuditModel {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
+		int result = super.hashCode();
 		result = prime * result + ((_id == null) ? 0 : _id.hashCode());
 		result = prime * result + ((empId == null) ? 0 : empId.hashCode());
 		result = prime * result + ((userName == null) ? 0 : userName.hashCode());
@@ -102,7 +95,7 @@ public class Employee extends AuditModel {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
@@ -125,4 +118,5 @@ public class Employee extends AuditModel {
 		return true;
 	}
 
+	
 }

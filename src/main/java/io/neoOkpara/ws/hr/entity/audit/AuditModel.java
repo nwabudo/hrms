@@ -24,6 +24,7 @@ import lombok.Setter;
 @Getter
 public abstract class AuditModel implements Serializable {
 
+
 	private static final long serialVersionUID = 3249193964152480108L;
 
 	@NotNull 
@@ -37,5 +38,37 @@ public abstract class AuditModel implements Serializable {
     @LastModifiedDate
     @JsonFormat(pattern = "yyyy-MMM-dd")
     private Date updatedAt;
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
+		result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AuditModel other = (AuditModel) obj;
+		if (createdAt == null) {
+			if (other.createdAt != null)
+				return false;
+		} else if (!createdAt.equals(other.createdAt))
+			return false;
+		if (updatedAt == null) {
+			if (other.updatedAt != null)
+				return false;
+		} else if (!updatedAt.equals(other.updatedAt))
+			return false;
+		return true;
+	}
+
     
 }

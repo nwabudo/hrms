@@ -1,9 +1,9 @@
 package io.neoOkpara.ws.hr.entiy.user;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Date;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -29,7 +29,7 @@ public class BenefitPaymentHis extends AuditModel {
 	private static final long serialVersionUID = -911265061874866421L;
 	
 	@Id
-	private ObjectId _id;
+	private BigInteger _id;
 	
 	@DBRef
 	@Field(name = "emp_id")

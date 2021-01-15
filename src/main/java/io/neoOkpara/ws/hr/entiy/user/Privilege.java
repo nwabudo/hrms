@@ -1,9 +1,12 @@
 package io.neoOkpara.ws.hr.entiy.user;
 
-import org.bson.types.ObjectId;
+import java.math.BigInteger;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,10 +22,11 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@JsonIgnoreProperties(value = {"_id" })
 public class Privilege {
 
 	@Id
-	private ObjectId _id;
+	private BigInteger _id;
 
 	@Field(name = "privilege_name")
 	private ApplicationUserPermission name;

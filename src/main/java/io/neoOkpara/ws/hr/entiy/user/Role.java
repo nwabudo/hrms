@@ -1,8 +1,8 @@
 package io.neoOkpara.ws.hr.entiy.user;
 
+import java.math.BigInteger;
 import java.util.Collection;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -23,11 +23,11 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@JsonIgnoreProperties(value = { "privileges" })
+@JsonIgnoreProperties(value = {"_id" })
 public class Role {
 
 	@Id
-	private ObjectId _id;
+	private BigInteger _id;
 
 	private ERole name;
 
