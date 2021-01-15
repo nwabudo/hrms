@@ -1,0 +1,22 @@
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27117
+server:
+  port: 8084
+  
+#    cloud:
+#      kubernetes:
+#        discovery:
+#          register: true
+#
+#        config:
+#          enabled: true
+#          sources:
+#           - namespace: default
+#             name: movie-db-config
+#          reload:
+#           enabled: true
+#           mode: polling
+#           period: 1000

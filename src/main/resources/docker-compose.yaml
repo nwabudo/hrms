@@ -1,0 +1,14 @@
+version: "3"
+services:
+  hrmsdb:
+    image: mongo:latest
+    container_name: "hrmsdb"
+    ports: 
+     - 27017:27017
+  hrmsapp:
+    image: hrms_app:1.0
+    container_name: hrmsapp
+    ports:
+     - 8080:8080
+    links:
+     - hrmsdb

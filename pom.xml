@@ -12,6 +12,7 @@
 	<groupId>io.neoOkpara.ws</groupId>
 	<artifactId>hr</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 	<name>hrms</name>
 	<description>Demo project for HR Management Suite</description>
 
@@ -92,8 +93,20 @@
 						</exclude>
 					</excludes>
 				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+						<configuration>
+							<mainClass>io.neoOkpara.ws.hr.HRMSApplication</mainClass>
+							<outputDirectory>${project.basedir}/target</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
+		<finalName>${project.artifactId}</finalName>
 	</build>
 
 </project>
