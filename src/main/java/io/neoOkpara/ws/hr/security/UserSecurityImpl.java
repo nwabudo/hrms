@@ -48,21 +48,21 @@ public class UserSecurityImpl implements UserSecurity {
 		String[] roles = ERole.getRoleHierarchy().split(">");
 		// Map<Integer, String> mappedRole = new HashMap<>();
 		Integer authEmpLevel = 0;
-		Integer returEmp = 0;
+		Integer returnEmp = 0;
 		for (int i = 0; i < roles.length; i++) {
 			// mappedRole.put(roles.length - i, roles[i].trim());
 			if (authEmp.getRoles().getName().getRole().equals(roles[i].trim()))
 				authEmpLevel = roles.length - i;
 			if (targetEmp.getRoles().getName().getRole().equals(roles[i].trim()))
-				returEmp = roles.length - i;
+				returnEmp = roles.length - i;
 		}
 		if(authEmpLevel < 3) {
 			String managerId = authEmp.getEmpId(), employeeMngId = targetEmp.getManagerId() == null ? "" : targetEmp.getManagerId();
 			if(!managerId.equals(employeeMngId))
 				return -1;
 		}
-		log.info("Authenticating Employee level is {}, Target Employee level is {}", authEmpLevel, returEmp);
-		return authEmpLevel.compareTo(returEmp);
+		log.info("Authenticating Employee level is {}, Target Employee level is {}", authEmpLevel, returnEmp);
+		return authEmpLevel.compareTo(returnEmp);
 	}
 
 }

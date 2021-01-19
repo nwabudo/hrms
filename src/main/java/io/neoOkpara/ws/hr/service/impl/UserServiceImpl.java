@@ -60,9 +60,7 @@ public class UserServiceImpl implements UserService {
 							.filter(emp -> !emp.getRoles().getName().equals(ERole.ROLE_HRMANAGER))
 							.filter(emp -> !emp.getRoles().getName().equals(ERole.ROLE_HR) && emp != employee.get())
 							.collect(Collectors.toSet());
-				} else {
-					return new HashSet<>(this.userRepository.findAll());
-				}
+				} else return new HashSet<>(this.userRepository.findAll());
 			}
 		} catch (Exception ex) {
 			throw new UserServiceException(ex.getMessage());
@@ -74,19 +72,16 @@ public class UserServiceImpl implements UserService {
 	public Employee maintainBenefit(String empId, Benefits benefits) {
 		Employee emp = this.userRepository.findByEmpId(empId)
 				.orElseThrow(() -> new UserServiceException("No user found for the Id: " + empId));
-		
 		emp.setAnnualBonus(benefits.getAnnualBonus());
 		emp.setSalaryAmount(benefits.getSalaryAmount());
 		emp.setVacationAmount(benefits.getVacationAmount());
 		return this.userRepository.save(emp);
 	}
-
 	
 	@Override
 	public List<BenefitPaymentHis> fetchSalaryHistory(String empId) {
 		Employee emp = this.userRepository.findByEmpId(empId)
 		.orElseThrow(() -> new UserServiceException("No user found for the Id: " + empId));
-		
 		return this.benefitRepository.findAllByEmployee(emp);
 	}
 	
