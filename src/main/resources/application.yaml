@@ -7,18 +7,10 @@ spring:
       
   profiles:
     active: dev
-  
-#  cloud:
-#    kubernetes:
-#      discovery:
-#        register: true
-#
-#      config:
-#        enabled: true
-#        sources:
-#         - namespace: default
-#           name: movie-db-config
-#        reload:
-#         enabled: true
-#         mode: polling
-#         period: 1000
+
+iyabobo:
+  tenant:
+    userId: root
+    userPwd: emmoxbobo
+    hostDBUrl: jdbc:mysql://localhost:6603/testDB?allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    hostDBdriver: com.mysql.cj.jdbc.Driver
